@@ -4,7 +4,7 @@ const db = require("../db")
 const router = express.Router()
 
 
-router.get("/sum", function (req, res){
+router.get("/sum", function (req, res) {
     
     try {
         res.status(200).send(math.sum(Number(req.query.a), Number(req.query.b)))
@@ -14,17 +14,15 @@ router.get("/sum", function (req, res){
     
 })
 
-
-
-router.get("/", function (req, res){
+router.get("/", function (req, res) {
     db.run()
     res.status(200).send("Ahoj")
 })
 
-router.post("/", function (req, res){
+router.post("/", function (req, res) {
     try {
         let topic = req.body.topic
-        let desc = req.body.dexsription
+        let desc = req.body.dessription
         console.log(topic)
     res.status(201).send("A topic was created")
     } catch (err){
@@ -33,7 +31,7 @@ router.post("/", function (req, res){
     
 })
 
-router.get("/:id", function (req, res){
+router.get("/:id", function (req, res) {
     try {
         let id = req.params.id
         console.log(id)

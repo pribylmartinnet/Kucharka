@@ -1,9 +1,10 @@
 require('dotenv').config()
-const { MongoClient } = require("mongodb");
+const { MongoClient } = require("mongodb")
 const client = new MongoClient(process.env.DB_CONN);
 
 async function run() {
-    try {
+ 
+  try {
       // Connect the client to the server
       await client.connect();
       // Establish and verify connection
@@ -13,6 +14,7 @@ async function run() {
       // Ensures that the client will close when you finish/error
       await client.close();
     }
+    
 }
 
 
