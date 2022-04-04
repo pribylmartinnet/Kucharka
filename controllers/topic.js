@@ -14,6 +14,8 @@ router.get("/sum", function (req, res) {
     
 })
 
+
+
 router.get("/", function (req, res) {
     db.run()
     res.status(200).send("Ahoj")
@@ -21,10 +23,27 @@ router.get("/", function (req, res) {
 
 router.post("/", function (req, res) {
     try {
-        let topic = req.body.topic
-        let desc = req.body.dessription
+        let topic = {
+            topic: req.body.topic,
+            description: req.body.description
+        }
+        
+        db.insertTopic(topic)
         console.log(topic)
     res.status(201).send("A topic was created")
+    } catch (err){
+        res.status(401).send("Bad request " + err )
+    }
+    
+})
+
+
+
+router.get("/list", function (req, res){
+    console.log("Zázrak")
+    try {no
+        db.listTopic()
+    res.status(201).send("List")
     } catch (err){
         res.status(401).send("Bad request " + err )
     }
@@ -45,6 +64,7 @@ router.get("/:id", function (req, res) {
 router.delete("/:id", function (req, res){
     try {
         let id = req.params.id
+        db.deleteTopic(id)
         console.log(id)
     res.status(201).send("A topic: " + id)
     } catch (err){
@@ -52,18 +72,6 @@ router.delete("/:id", function (req, res){
     }
     
 })
-
-router.get("/list", function (req, res){
-    try {
-        console.log(id)
-    res.status(201).send("List")
-    } catch (err){
-        res.status(401).send("Bad request " + err )
-    }
-    
-})
-
-
 
 
 
