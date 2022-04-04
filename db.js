@@ -55,12 +55,8 @@ async function listTopic(){
       // const cursor = col.find();
       //await cursor.forEach(console.dir);
 
-      collTopic.find()
-      .toArray().then((x) => {
-          console.log(x);
-      });
-
-      console.log("List")
+      return collTopic.find().toArray()
+      
   } catch (err) {
       throw new Error(err)
   }
