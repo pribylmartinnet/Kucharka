@@ -41,7 +41,7 @@ router.post("/", function (req, res) {
 
 router.get("/list", function (req, res){
     console.log("Zázrak")
-    try {no
+    try {
         db.listTopic()
     res.status(201).send("List")
     } catch (err){
