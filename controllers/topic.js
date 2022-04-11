@@ -37,17 +37,13 @@ router.post("/", function (req, res) {
     
 })
 
-
-
 router.get("/list", async function (req, res){
-    console.log("Zázrak")
     try {
         const topics = await db.listTopic()
         res.status(201).send(topics)
     } catch (err){
         res.status(401).send("Bad request " + err )
-    }
-    
+    }    
 })
 
 router.get("/:id", function (req, res) {
