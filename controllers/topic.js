@@ -14,8 +14,6 @@ router.get("/sum", function (req, res) {
     
 })
 
-
-
 router.get("/", function (req, res) {
     db.run()
     res.status(200).send("Ahoj")
