@@ -48,19 +48,23 @@ async function deleteTopic(id){
   }
 }
 
-async function listTopic(){
-  console.log("ListTopic")
+async function listTopic(topic){
+  
+  
   try {
       await client.connect()
-      // const cursor = col.find();
-      //await cursor.forEach(console.dir);
+      if (topic!=null) {
+        return collTopic.find({topic: RegExp(topic)}).toArray()
 
-      return collTopic.find().toArray()
+      } else {
+        return collTopic.find().toArray()
+      }    
       
   } catch (err) {
       throw new Error(err)
   }
 }
+
 
 module.exports = { 
   run,

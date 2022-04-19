@@ -1,6 +1,7 @@
 const express = require("express")
 const math = require("../math")
 const db = require("../db")
+const { request } = require("express")
 const router = express.Router()
 
 
@@ -44,6 +45,29 @@ router.get("/list", async function (req, res){
     }    
 })
 
+
+router.post("/list", async function (req, res){
+    try {
+        console.log(req.body.topic) 
+        const topics = await db.listTopic(req.body.topic)
+        res.status(201).send(topics)
+    } catch (err){
+        res.status(401).send("Bad request " + err )
+    }    
+})
+
+
+router.post("/picture", async function (req, res){
+    try {
+        console.log(req.body.picture) 
+        //const topics = await db.listTopic(req.body.topic)
+        res.status(201).send(req.body.picture)
+    } catch (err){
+        res.status(401).send("Bad request " + err )
+    }    
+})
+
+
 router.get("/:id", function (req, res) {
     try {
         let id = req.params.id
@@ -54,6 +78,7 @@ router.get("/:id", function (req, res) {
     }
     
 })
+
 
 router.delete("/:id", function (req, res){
     try {
