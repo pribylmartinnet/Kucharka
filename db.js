@@ -3,6 +3,8 @@ const { MongoClient, ObjectId } = require("mongodb")
 const client = new MongoClient(process.env.DB_CONN);
 const database = client.db(process.env.DB_DB);
 const collTopic = database.collection(process.env.DB_COLLECTION);
+const collPic = database.collection(process.env.DB_COLLPIC);
+
 
 async function run() {
  
@@ -38,6 +40,18 @@ async function insertTopic(topic) {
   }
 }
 
+
+async function insertPicture(pic) {
+  try {
+    // Connect the client to the server
+    await client.connect()
+    const result = await collPic.insertOne(pic)
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+
 async function deleteTopic(id){
   try {
       await client.connect()
@@ -54,10 +68,10 @@ async function listTopic(topic){
   try {
       await client.connect()
       if (topic!=null) {
-        return collTopic.find({topic: RegExp(topic)}).toArray()
+        return collTopic.find({topic: RegExp(topic)}).sort({_id:1}).skip(0).limit(2).toArray()
 
       } else {
-        return collTopic.find().toArray()
+        return collTopic.find().sort({_id:1}).skip(0).limit(2).toArray()
       }    
       
   } catch (err) {
@@ -70,5 +84,6 @@ module.exports = {
   run,
   insertTopic,
   deleteTopic,
-  listTopic
+  listTopic,
+  insertPicture
 }

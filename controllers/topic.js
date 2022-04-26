@@ -59,9 +59,14 @@ router.post("/list", async function (req, res){
 
 router.post("/picture", async function (req, res){
     try {
-        console.log(req.body.picture) 
-        //const topics = await db.listTopic(req.body.topic)
-        res.status(201).send(req.body.picture)
+
+        const pic = {
+            topicId: req.body.id,
+            picture: req.body.picture
+        }
+    
+        const topics = await db.insertPicture(pic)
+        res.status(201).send("Picture was saved")
     } catch (err){
         res.status(401).send("Bad request " + err )
     }    
