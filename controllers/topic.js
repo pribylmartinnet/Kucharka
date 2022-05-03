@@ -59,14 +59,32 @@ router.post("/list", async function (req, res){
 
 router.post("/picture", async function (req, res){
     try {
-
         const pic = {
             topicId: req.body.id,
             picture: req.body.picture
         }
-    
         const topics = await db.insertPicture(pic)
         res.status(201).send("Picture was saved")
+    } catch (err){
+        res.status(401).send("Bad request " + err )
+    }    
+})
+
+
+router.get("/picture/:id", async function (req, res){
+    try {
+        const pictures = await db.getPictures(req.params.id)
+        res.status(201).send(pictures[0].picture)
+    } catch (err){
+        res.status(401).send("Bad request " + err )
+    }    
+})
+
+
+router.delete("/picture/:id", async function (req, res){
+    try {
+        const object = await db.deletePicture(req.params.id)
+        res.status(201).send("Picture was deleted")
     } catch (err){
         res.status(401).send("Bad request " + err )
     }    

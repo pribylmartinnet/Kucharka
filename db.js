@@ -63,8 +63,6 @@ async function deleteTopic(id){
 }
 
 async function listTopic(topic){
-  
-  
   try {
       await client.connect()
       if (topic!=null) {
@@ -80,10 +78,32 @@ async function listTopic(topic){
 }
 
 
+async function getPictures(id){
+  try {
+      await client.connect()
+      return collPic.find({topicId: id}).toArray()          
+  } catch (err) {
+      throw new Error(err)
+  } 
+}
+
+
+async function deletePicture(id){
+  try {
+      await client.connect()
+      const result = await collPic.deleteOne({"topicId": id});
+      console.log(result)
+  } catch (err) {
+      throw new Error(err)
+  }
+}
+
 module.exports = { 
   run,
   insertTopic,
   deleteTopic,
   listTopic,
-  insertPicture
+  insertPicture,
+  getPictures,
+  deletePicture
 }
