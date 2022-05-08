@@ -5,7 +5,6 @@ const database = client.db(process.env.DB_DB);
 const collTopic = database.collection(process.env.DB_COLLECTION);
 const collPic = database.collection(process.env.DB_COLLPIC);
 
-
 async function run() {
  
   try {
@@ -61,15 +60,21 @@ async function deleteTopic(id){
       throw new Error(err)
   }
 }
-
-async function listTopic(topic){
+currentPage = 0;
+async function listTopic(filtr,page){
+  
+  if (page > 0) currentPage +=2;
+  console.log(currentPage)
   try {
       await client.connect()
-      if (topic!=null) {
-        return collTopic.find({topic: RegExp(topic)}).sort({_id:1}).skip(0).limit(2).toArray()
+      if (filtr!=null) {
+        console.log("7")
+        return collTopic.find({topic: RegExp(filtr)}).sort({_id:1}).skip(0).limit(1).toArray()
 
       } else {
-        return collTopic.find().sort({_id:1}).skip(0).limit(2).toArray()
+        console.log("8")
+        console.log(currentPage)
+        return collTopic.find().sort({_id:1}).skip(0).limit(1).toArray()
       }    
       
   } catch (err) {

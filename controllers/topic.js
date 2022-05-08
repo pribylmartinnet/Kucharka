@@ -38,7 +38,7 @@ router.post("/", function (req, res) {
 
 router.get("/list", async function (req, res){
     try {
-        const topics = await db.listTopic()
+        const topics = await db.listTopic(null, 2)
         res.status(201).send(topics)
     } catch (err){
         res.status(401).send("Bad request " + err )
@@ -47,6 +47,7 @@ router.get("/list", async function (req, res){
 
 
 router.post("/list", async function (req, res){
+    
     try {
         console.log(req.body.topic) 
         const topics = await db.listTopic(req.body.topic)
