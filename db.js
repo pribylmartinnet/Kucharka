@@ -62,14 +62,19 @@ async function deleteTopic(id){
   }
 }
 
-async function listTopic(topic){
+async function listTopic(topic, fromRecord){
+  console.log(fromRecord)
+  fromRecord = Number(fromRecord)
   try {
       await client.connect()
-      if (topic!=null) {
-        return collTopic.find({topic: RegExp(topic)}).sort({_id:1}).skip(0).limit(2).toArray()
-
+      if (topic!=null && fromRecord!=null ) {
+          return collTopic.find({topic: RegExp(topic)}).sort({_id:1}).skip(fromRecord).limit(5).toArray()
+      } else if (topic!=null && fromRecord===null ) {
+          return collTopic.find({topic: RegExp(topic)}).sort({_id:1}).skip(0).limit(5).toArray()
+      } else if (topic===null && fromRecord!=null ) {
+          return collTopic.find().sort({_id:1}).skip(fromRecord).limit(5).toArray()
       } else {
-        return collTopic.find().sort({_id:1}).skip(0).limit(2).toArray()
+        return collTopic.find().sort({_id:1}).skip(0).limit(5).toArray()
       }    
       
   } catch (err) {
