@@ -56,6 +56,7 @@ router.get("/list/:fromRecord", async function (req, res){
 
 
 router.post("/list", async function (req, res){
+    
     try {
         console.log(req.body.topic) 
         const topics = await db.listTopic(req.body.pages, req.body.topic)

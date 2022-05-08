@@ -5,7 +5,6 @@ const database = client.db(process.env.DB_DB);
 const collTopic = database.collection(process.env.DB_COLLECTION);
 const collPic = database.collection(process.env.DB_COLLPIC);
 
-
 async function run() {
  
   try {
