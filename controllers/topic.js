@@ -86,6 +86,7 @@ router.get("/picture/:id", async function (req, res){
         const pictures = await db.getPictures(req.params.id)
         res.status(201).send(pictures[0].picture)
     } catch (err){
+        console.log(err)
         res.status(401).send("Bad request " + err )
     }    
 })
